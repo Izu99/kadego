@@ -80,6 +80,17 @@ flutter build apk --release --dart-define=API_URL=http://192.168.1.10:5000
 
 The APK is created at `app/build/app/outputs/flutter-apk/app-release.apk`.
 
+## Free hosting (Render)
+
+1. Sign in at [render.com](https://render.com) with GitHub.
+2. **New → Blueprint**, pick this repo. Render reads `render.yaml` and creates `kadego-api`.
+3. When asked, paste your MongoDB Atlas link as `MONGO_URI` (database name `kadego`).
+4. In Atlas → **Network Access**, allow `0.0.0.0/0` (Render has no fixed IP).
+5. Build the app against it:
+   `flutter build apk --release --dart-define=API_URL=https://kadego-api.onrender.com`
+
+The free plan sleeps after 15 min idle; the first request then takes ~30–50 s.
+
 ## Credits
 
 Product images are from Microsoft's [Fluent Emoji](https://github.com/microsoft/fluentui-emoji) (MIT licence).

@@ -28,7 +28,12 @@ async function start() {
   let uri = process.env.MONGO_URI || process.env.MONGODB_URI;
   if (!uri) {
     // No MONGO_URI set: run a throwaway local MongoDB so the app works out of the box.
-    const { MongoMemoryServer } = require('mongodb-memory-server');
+    let MongoMemoryServer;
+    try {
+      ({ MongoMemoryServer } = require('mongodb-memory-server')); // dev dependency only
+    } catch {
+      throw new Error('MONGO_URI is not set. Add your MongoDB Atlas link as the MONGO_URI environment variable.');
+    }
     const mem = await MongoMemoryServer.create();
     uri = mem.getUri('kadego');
     console.log('MONGO_URI not set - using in-memory MongoDB (data resets on restart)');
