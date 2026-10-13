@@ -1,0 +1,10 @@
+# secrets
+.env
+server/.env
+
+# dependencies / builds
+node_modules/
+app/build/
+
+# assignment brief (university document, not part of the code)
+*.pdf
