@@ -80,16 +80,18 @@ flutter build apk --release --dart-define=API_URL=http://192.168.1.10:5000
 
 The APK is created at `app/build/app/outputs/flutter-apk/app-release.apk`.
 
-## Free hosting (Render)
+## Free hosting (Vercel)
 
-1. Sign in at [render.com](https://render.com) with GitHub.
-2. **New → Blueprint**, pick this repo. Render reads `render.yaml` and creates `kadego-api`.
-3. When asked, paste your MongoDB Atlas link as `MONGO_URI` (database name `kadego`).
-4. In Atlas → **Network Access**, allow `0.0.0.0/0` (Render has no fixed IP).
-5. Build the app against it:
-   `flutter build apk --release --dart-define=API_URL=https://kadego-api.onrender.com`
+The API is live at **https://kadego-api.vercel.app** (Vercel project `kadego-api`, root `server/`).
+`server/api/index.js` is the Vercel entry; `server/src/index.js` still runs it as a normal server locally.
 
-The free plan sleeps after 15 min idle; the first request then takes ~30–50 s.
+1. Set `MONGO_URI` and `JWT_SECRET` in the project's Production environment.
+2. In Atlas → **Network Access**, allow `0.0.0.0/0` (Vercel has no fixed IP).
+3. Deploy from `server/`: `vercel deploy --prod`
+4. Build the app against it:
+   `flutter build apk --release --dart-define=API_URL=https://kadego-api.vercel.app`
+
+`render.yaml` is kept as an alternative (Render's free plan asks for a card).
 
 ## Credits
 
